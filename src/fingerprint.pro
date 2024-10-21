@@ -27,7 +27,5 @@ target.path = $$BIN_DIR
 library.files = $$LIB_NAME
 library.path = $$LIB_DIR
 INSTALLS += target library
-post_install.commands = mkdir -p $$DATA_DIR && chmod 770 $$DATA_DIR && \
-chown root.users $$DATA_DIR && cp $$DESTDIR*.dat $$DATA_DIR 
-#@echo "...Now add user to users group: sudo usermod -aG users $USER"
+post_install.commands = mkdir -p $$DATA_DIR && chmod 1770 $$DATA_DIR && chown root.users $$DATA_DIR
 QMAKE_EXTRA_TARGETS += post_install

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Exec=fingerprint
+Path=/usr/local/bin/
+Icon=/usr/local/fingerprint/fingerprint.png
+Categories=System;
+Keywords=fingerprint;
+Name=Fingerprint Reader
+Comment=Configure a fingerprint authentication

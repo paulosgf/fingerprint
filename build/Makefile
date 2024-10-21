@@ -339,7 +339,7 @@ distclean: clean
 ####### Sub-libraries
 
 post_install:
-	mkdir -p /usr/local/fingerprint/ && chmod 770 /usr/local/fingerprint/ && chown root.users /usr/local/fingerprint/ && cp ../bin/*.dat /usr/local/fingerprint/
+	mkdir -p /usr/local/fingerprint/ && chmod 1770 /usr/local/fingerprint/ && chown root.users /usr/local/fingerprint/
 
 mocclean: compiler_moc_header_clean compiler_moc_objc_header_clean compiler_moc_source_clean
 
