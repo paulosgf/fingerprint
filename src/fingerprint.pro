@@ -1,6 +1,6 @@
 QT += core gui widgets
 TEMPLATE = app
-TARGET = fingerprint
+TARGET = fingerpdemo
 
 INCLUDEPATH += ../src
 DEPENDPATH += ../src
