@@ -37,7 +37,6 @@ private slots:
 
     void on_pushButton_CloseDevice_clicked();
 
-
     void onTimer();
 
     void on_pushButton_Enroll_clicked();

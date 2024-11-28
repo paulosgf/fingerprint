@@ -2,8 +2,10 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <cstdlib>
-#include <stdio.h>
+#include <string>
 #include "fpengine.h"
+
+char *home = strcat(getenv("HOME"), "/.fingerprint");
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -72,10 +74,16 @@ void MainWindow::on_pushButton_Match_clicked()
     GenFpChar();
 }
 
+
 void MainWindow::onTimer()
 {
     int msgWork=GetWorkMsg();
-    int msgRet=GetRetMsg();
+    int msgRet=GetRetMsg(); 
+    char *ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
+    sprintf(ref1, "%s%s", home, "/ref1.dat");
+    char *ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
+    sprintf(ref2, "%s%s", home, "/ref2.dat");
+
     switch(msgWork)
     {
     case FPM_PLACE:
@@ -114,9 +122,30 @@ void MainWindow::onTimer()
 
                 GetFpCharByGen(m_genchar,&m_gencharsize);
 
-                ///*
                 FILE* fp;
-                fp = fopen("/usr/local/fingerprint/ref2.dat", "wb+");
+                try
+                {
+                    fp = fopen(ref2, "wb+");
+                }
+                catch(const std::runtime_error& re)
+                {
+                    // runtime_error
+                    std::cout << ref2 << std::endl;
+                    std::cerr << "Runtime error: " << re.what() << std::endl;
+                }
+                catch(const std::exception& ex)
+                {
+                    //  all exceptions except std::runtime_error
+                    std::cout << ref2 << std::endl;
+                    std::cerr << "Error occurred: " << ex.what() << std::endl;
+                }
+                catch(...)
+                {
+                    // catch any other errors
+                    std::cout << ref2 << std::endl;
+                    std::cerr << "Unknown failure occurred." << std::endl;
+                }
+
                 if (fp == NULL)
                 {
                     ui->labelStatus->setText("Open File Fail");
@@ -125,8 +154,8 @@ void MainWindow::onTimer()
                 {
                     fwrite(m_genchar,256,1,fp);
                     fclose(fp);
+                    free(ref2);
                 }
-                //*/
             }
             timer->stop();
             if(m_enrollsize>0)
@@ -153,9 +182,30 @@ void MainWindow::onTimer()
 
                 GetFpCharByEnl(m_enrolltp,&m_enrollsize);
 
-                ///*
                 FILE* fp;
-                fp = fopen("/usr/local/fingerprint/ref1.dat", "wb+");
+                try
+                {
+                    fp = fopen(ref1, "wb+");
+                }
+                catch(const std::runtime_error& re)
+                {
+                    // runtime_error
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Runtime error: " << re.what() << std::endl;
+                }
+                catch(const std::exception& ex)
+                {
+                    //  all exceptions except std::runtime_error
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Error occurred: " << ex.what() << std::endl;
+                }
+                catch(...)
+                {
+                    // catch any other errors
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Unknown failure occurred." << std::endl;
+                }
+
                 if (fp == NULL)
                 {
                     ui->labelStatus->setText("Open File Fail");
@@ -164,13 +214,13 @@ void MainWindow::onTimer()
                 {
                     fwrite(m_enrolltp,512,1,fp);
                     fclose(fp);
+                    free(ref1);
                 }
-                //*/
             }
             timer->stop();
         }
         break;
-    }
+    }       
 }
 
 void MainWindow::matchfile()
@@ -180,16 +230,21 @@ void MainWindow::matchfile()
 
     unsigned char Src[512];
     unsigned char Dst[256];
+    char *ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
+    sprintf(ref1, "%s%s", home, "/ref1.dat");
+    char *ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
+    sprintf(ref2, "%s%s", home, "/ref2.dat");
 
     FILE* fp1;
     FILE* fp2;
-    fp1 = fopen("/usr/local/fingerprint/ref1.dat", "rb+");
+
+    fp1 = fopen(ref1, "rb+");
     if (fp1 == NULL)
     {
         ui->labelStatus->setText("Open File Fail");
         return;
     }
-    fp2 = fopen("/usr/local/fingerprint/ref2.dat", "rb+");
+    fp2 = fopen(ref2, "rb+");
     if (fp2 == NULL)
     {
         ui->labelStatus->setText("Open File Fail");
@@ -198,12 +253,14 @@ void MainWindow::matchfile()
     fread(Src,512,1,fp2);
     fread(Dst,256,1,fp1);
     fclose(fp2);
+    free(ref2);
     fclose(fp1);
+    free(ref1);
 
     MatchScore=MatchTemplateOne(Dst,Src,512);
 
     strResult.sprintf("Match Scope:%d",MatchScore);
-    ui->labelStatus->setText(strResult);
+    ui->labelStatus->setText(strResult);    
 }
 
 void MainWindow::on_pushButton_clicked()
