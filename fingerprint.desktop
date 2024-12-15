@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Exec=fingerpdemo
+Exec=fingerprint
 Path=/usr/local/bin/
 Icon=/usr/local/fingerprint/fingerprint.png
 Categories=System;
