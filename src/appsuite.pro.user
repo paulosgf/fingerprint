@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 6.0.2, 2024-12-22T21:14:35. -->
+<!-- Written by QtCreator 6.0.2, 2024-12-23T18:55:17. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -92,9 +92,9 @@
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">Desktop</value>
    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">{22a41767-31ac-46ad-b367-0ec9ef2f4097}</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">1</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
-   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
+   <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">1</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
     <value type="int" key="EnableQmlDebugging">0</value>
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/paulo/git/fingerprint/build-appsuite-ext4-Debug</value>
@@ -136,8 +136,8 @@
     <value type="int" key="Qt4ProjectManager.Qt4BuildConfiguration.BuildConfiguration">2</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.1">
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/paulo/git/fingerprint/build-appsuite-ext4-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/paulo/git/fingerprint/build-appsuite-ext4-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/home/paulo/git/fingerprint/build</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">/home/paulo/git/fingerprint/build</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -243,7 +243,8 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build-appsuite-ext4-Debug/auth/../../bin/</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/paulo/git/fingerprint/bin</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build/auth/../../bin/</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.1">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -259,7 +260,8 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build-appsuite-ext4-Debug/demo/../../bin/</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/paulo/git/fingerprint/bin</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build/demo/../../bin/</value>
    </valuemap>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.RunConfiguration.2">
     <value type="bool" key="Analyzer.Perf.Settings.UseGlobalSettings">true</value>
@@ -275,7 +277,8 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build-appsuite-ext4-Debug/fingerprint</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/paulo/git/fingerprint/bin</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/paulo/git/fingerprint/build/fingerprint/../../bin/</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">3</value>
   </valuemap>
