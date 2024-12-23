@@ -14,21 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGraphicsView" name="graphicsView">
+   <widget class="QPushButton" name="pushButton_Enroll">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>30</y>
-      <width>321</width>
-      <height>341</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_Match">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>500</y>
+      <x>340</x>
+      <y>480</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -36,18 +26,29 @@
     <property name="font">
      <font>
       <weight>75</weight>
+      <italic>false</italic>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>Verify</string>
+     <string>Register</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>20</y>
+      <width>321</width>
+      <height>341</height>
+     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="labelStatus">
     <property name="geometry">
      <rect>
       <x>110</x>
-      <y>420</y>
+      <y>400</y>
       <width>581</width>
       <height>41</height>
      </rect>
