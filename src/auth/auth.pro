@@ -9,9 +9,9 @@ QMAKE_LFLAGS += -Wl,-rpath,/usr/local/lib
 
 SOURCES += main.cpp mainwindow.cpp
 
-HEADERS += ../mainwindow.h
+HEADERS += ./mainwindow.h
 
-FORMS += ../mainwindow.ui
+FORMS += ./mainwindow.ui
 
 LIB_NAME = libfpengine.so
 DESTDIR = ../../bin/
