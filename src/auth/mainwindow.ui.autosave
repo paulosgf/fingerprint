@@ -27,14 +27,20 @@
    <widget class="QPushButton" name="pushButton_Match">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>480</y>
+      <x>330</x>
+      <y>500</y>
       <width>121</width>
       <height>41</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="text">
-     <string>Match</string>
+     <string>Verify</string>
     </property>
    </widget>
   </widget>
