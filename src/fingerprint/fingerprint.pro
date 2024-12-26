@@ -1,5 +1,5 @@
 QT += core gui widgets
-TARGET = auth
+TARGET = fingerprint
 
 INCLUDEPATH += ../
 DEPENDPATH += ../

@@ -23,12 +23,10 @@ private:
     int	m_Status;
     int	m_Result;
     int  m_ProcType;
-
-    int 	m_gencharsize;
+    int m_gencharsize;
     unsigned char m_genchar[512];
     int m_enrollsize;
     unsigned char m_enrolltp[512];
-
     unsigned char m_BmpData[93238];
     int m_BmpSize;
 
