@@ -418,9 +418,18 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 ####### Install
 
-install:  FORCE
+install_target: first FORCE
+	@test -d $(INSTALL_ROOT)/usr/local/bin/ || mkdir -p $(INSTALL_ROOT)/usr/local/bin/
+	$(QINSTALL_PROGRAM) /home/paulo/git/fingerprint/bin/fingerprint $(INSTALL_ROOT)/usr/local/bin/fingerprint
 
-uninstall:  FORCE
+uninstall_target: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/local/bin/fingerprint
+	-$(DEL_DIR) $(INSTALL_ROOT)/usr/local/bin/ 
+
+
+install: install_target  FORCE
+
+uninstall: uninstall_target  FORCE
 
 FORCE:
 

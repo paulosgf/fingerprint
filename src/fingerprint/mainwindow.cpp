@@ -3,7 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
-#include<unistd.h>
+#include <unistd.h>
 #include "../fpengine.h"
 
 using namespace std;
@@ -14,12 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-    // vars
     ui->setupUi(this);
 
+    // vars
     timer=new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(__registryCapture()));
 
+    on_OpenDevice();
+    connect(timer, SIGNAL(timeout()), this, SLOT(on_RegistryCapture()));
 }
 
 MainWindow::~MainWindow()
@@ -27,14 +28,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::__registryCapture()
+void MainWindow::on_RegistryCapture()
 {
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
     char *ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
     sprintf(ref1, "%s%s", home, "/ref1.dat");
-
-    __OpenDevice();
 
     switch(msgWork)
     {
@@ -55,6 +54,7 @@ void MainWindow::__registryCapture()
             ui->graphicsView->setScene(gs);
         }
         break;
+    case FPM_CAPTURE:
     case FPM_ENRFPT:
         {
         if(msgRet==0)
@@ -63,6 +63,8 @@ void MainWindow::__registryCapture()
             }
         else {
             GetFpCharByEnl(regPtr,&regSize);
+            ui->labelStatus->setText("Register OK");
+
             FILE* fp;
             try
             {   if (ref1 != NULL)   {
@@ -99,46 +101,53 @@ void MainWindow::__registryCapture()
                     free(ref1);
                 }
             }
-        }
+            }
             timer->stop();
         }
          break;
      }
-    __CloseDevice();
 }
 
-void MainWindow::__OpenDevice()
+void MainWindow::on_OpenDevice()
 {
     CloseDevice();
     if(!OpenDevice())	//Open USB
     {
         ui->labelStatus->setText("Device Open Fail");
-        sleep(3);
+        sleep(1);
         exit(0);
     }
+
     if(!LinkDevice(0))  // Connect USB
     {
         CloseDevice();
         ui->labelStatus->setText("Device Connection Fail");
-        sleep(3);
+        sleep(1);
         exit(0);
     }
 }
 
-void MainWindow::__CloseDevice()
+void MainWindow::on_CloseDevice()
 {
    if (!CloseDevice())
    {
         ui->labelStatus->setText("Device Close Fail");
-        sleep(3);
+        sleep(1);
         exit(0);
    }
 }
 
-
 void MainWindow::on_pushButton_Registry_clicked()
 {
-    timer->start(1000);
+    timer->start(100);
     EnrolFpChar();
+}
+
+void MainWindow::on_pushButton_Exit_clicked()
+{
+    on_CloseDevice();
+    ui->labelStatus->setText("Device Close Ok");
+    sleep(1);
+    exit(0);
 }
 

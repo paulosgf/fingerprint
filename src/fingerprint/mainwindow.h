@@ -25,10 +25,12 @@ private:
     int bmpSize;
 
 private slots:
-    void __registryCapture();
-    void __OpenDevice();
-    void __CloseDevice();
+    void on_RegistryCapture();
+    void on_OpenDevice();
+    void on_CloseDevice();
     void on_pushButton_Registry_clicked();
+
+    void on_pushButton_Exit_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton_Registry">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>480</y>
+      <x>180</x>
+      <y>470</y>
       <width>121</width>
       <height>41</height>
      </rect>
@@ -55,12 +55,38 @@
     </property>
     <property name="font">
      <font>
-      <family>Abyssinica SIL</family>
+      <family>Arial</family>
       <pointsize>20</pointsize>
      </font>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Exit">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>470</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <italic>false</italic>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Exit</string>
     </property>
    </widget>
   </widget>
