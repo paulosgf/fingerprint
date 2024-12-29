@@ -64,6 +64,7 @@ void MainWindow::on_pushButton_CloseDevice_clicked()
 
 void MainWindow::on_pushButton_Enroll_clicked()
 {
+    printf("Registry button clicked\n");
     timer->start(100);
     EnrolFpChar();
 }
@@ -84,6 +85,7 @@ void MainWindow::onTimer()
     char *ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
     sprintf(ref2, "%s%s", home, "/ref2.dat");
 
+    printf("GetWorkMsg: %d\n", msgWork);
     switch(msgWork)
     {
     case FPM_PLACE:
