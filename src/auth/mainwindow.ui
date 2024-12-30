@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>573</width>
+    <height>434</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,24 +17,36 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>30</y>
-      <width>361</width>
-      <height>421</height>
+      <x>200</x>
+      <y>50</y>
+      <width>171</width>
+      <height>201</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_Match">
+   <widget class="QLabel" name="labelStatus">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>480</y>
-      <width>121</width>
-      <height>41</height>
+      <x>130</x>
+      <y>290</y>
+      <width>311</width>
+      <height>31</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="text">
-     <string>Match</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
@@ -43,7 +55,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>573</width>
      <height>22</height>
     </rect>
    </property>

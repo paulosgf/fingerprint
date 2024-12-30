@@ -12,9 +12,9 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
 
@@ -25,7 +25,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGraphicsView *graphicsView;
-    QPushButton *pushButton_Match;
+    QLabel *labelStatus;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -33,19 +33,25 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(573, 434);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(220, 30, 361, 421));
-        pushButton_Match = new QPushButton(centralwidget);
-        pushButton_Match->setObjectName(QString::fromUtf8("pushButton_Match"));
-        pushButton_Match->setGeometry(QRect(340, 480, 121, 41));
+        graphicsView->setGeometry(QRect(200, 50, 171, 201));
+        labelStatus = new QLabel(centralwidget);
+        labelStatus->setObjectName(QString::fromUtf8("labelStatus"));
+        labelStatus->setGeometry(QRect(130, 290, 311, 31));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Arial"));
+        font.setPointSize(20);
+        labelStatus->setFont(font);
+        labelStatus->setLayoutDirection(Qt::LeftToRight);
+        labelStatus->setAlignment(Qt::AlignCenter);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 22));
+        menubar->setGeometry(QRect(0, 0, 573, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -59,7 +65,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton_Match->setText(QCoreApplication::translate("MainWindow", "Match", nullptr));
+        labelStatus->setText(QString());
     } // retranslateUi
 
 };

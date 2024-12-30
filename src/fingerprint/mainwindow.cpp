@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // vars
+    regSize = 0;
     timer=new QTimer(this);
 
     on_OpenDevice();
@@ -146,8 +147,6 @@ void MainWindow::on_pushButton_Registry_clicked()
 void MainWindow::on_pushButton_Exit_clicked()
 {
     on_CloseDevice();
-    ui->labelStatus->setText("Device Close Ok");
-    sleep(1);
     exit(0);
 }
 

@@ -409,7 +409,8 @@ main.o: ../../src/auth/main.cpp ../../src/auth/mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../src/auth/main.cpp
 
 mainwindow.o: ../../src/auth/mainwindow.cpp ../../src/auth/mainwindow.h \
-		ui_mainwindow.h
+		ui_mainwindow.h \
+		../../src/fpengine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../src/auth/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

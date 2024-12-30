@@ -29,7 +29,6 @@ private slots:
     void on_OpenDevice();
     void on_CloseDevice();
     void on_pushButton_Registry_clicked();
-
     void on_pushButton_Exit_clicked();
 
 private:
