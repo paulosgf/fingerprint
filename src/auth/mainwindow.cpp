@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <filesystem>
 #include <unistd.h>
 #include "../fpengine.h"
 
@@ -19,7 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // vars
-    regSize = 0;
+    ref1Size = 0;
+    ref2Size = 0;
 
     // Open device
     on_OpenDevice();
@@ -48,8 +50,12 @@ void MainWindow::on_VerifyMatch()
     printf("on_VerifyMatch\n");
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
+    char *ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
+    sprintf(ref1, "%s%s", home, "/ref1.dat");
     char *ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
     sprintf(ref2, "%s%s", home, "/ref2.dat");
+    int ref1size = filesystem::file_size(ref1);
+    printf("ref1 = %d bytes\n", ref1size);
 
     timer->start(100);
     GenFpChar();
@@ -85,12 +91,13 @@ void MainWindow::on_VerifyMatch()
             {
                 ui->labelStatus->setText("Verify OK");
 
-                GetFpCharByGen(regPtr,&regSize);
+                // Get matching pattern
+                GetFpCharByGen(getCharGen,&ref2Size);
+                FILE* fp2;
 
-                FILE* fp;
                 try
                 {
-                    fp = fopen(ref2, "wb+");
+                    fp2 = fopen(ref2, "wb+");
                 }
                 catch(const std::runtime_error& re)
                 {
@@ -111,26 +118,64 @@ void MainWindow::on_VerifyMatch()
                     std::cerr << "Unknown failure occurred." << std::endl;
                 }
 
-                if (fp == NULL)
+                if (fp2 == NULL)
                 {
                     ui->labelStatus->setText("Open File Fail");
                 }
                 else
                 {
-                    fwrite(regFile,256,1,fp);
-                    fclose(fp);
+                    fwrite(ref2File,256,1,fp2);
+                    fclose(fp2);
                     free(ref2);
+                }
+
+                // Get reference template
+                GetFpCharByEnl(getCharEnl,&ref1Size);
+                FILE* fp1;
+
+                try
+                {
+                    fp1 = fopen(ref1, "wb+");
+                }
+                catch(const std::runtime_error& re)
+                {
+                    // runtime_error
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Runtime error: " << re.what() << std::endl;
+                }
+                catch(const std::exception& ex)
+                {
+                    //  all exceptions except std::runtime_error
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Error occurred: " << ex.what() << std::endl;
+                }
+                catch(...)
+                {
+                    // catch any other errors
+                    std::cout << ref1 << std::endl;
+                    std::cerr << "Unknown failure occurred." << std::endl;
+                }
+
+                if (fp1 == NULL)
+                {
+                    ui->labelStatus->setText("Open File Fail");
+                }
+                else
+                {
+                    fread(ref1File,256,1,fp1);
+                    fclose(fp1);
+                    free(ref1);
                 }
             }
             timer->stop();
- /*           if(regSize>0)
+            if(ref1size>0)
             {
                 QString strResult;
                 int sc;
-                sc=MatchTemplateOne(regFile,regSize,512);
+                sc=MatchTemplateOne(ref2File,ref1File,512);
                 strResult.sprintf("Match Scope:%d",sc);
                 ui->labelStatus->setText(strResult);
-            }   */
+            }
         }
         break;
      }
