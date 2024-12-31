@@ -18,10 +18,13 @@ public:
 
 private:
     QTimer * timer;
-    unsigned char regPtr[512];
-    unsigned char regFile[512];
+    unsigned char getCharGen[512];
+    unsigned char getCharEnl[512];
+    unsigned char ref2File[512];
+    unsigned char ref1File[512];
     unsigned char bmpData[93238];
-    int regSize;
+    int ref1Size;
+    int ref2Size;
     int bmpSize;
 
 private slots:
