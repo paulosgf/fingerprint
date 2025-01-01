@@ -89,10 +89,10 @@ void MainWindow::on_VerifyMatch()
             }
             else
             {
-                ui->labelStatus->setText("Verify OK");
+//                ui->labelStatus->setText("Verify OK");
 
                 // Get matching pattern
-                GetFpCharByGen(getCharGen,&ref2Size);
+                GetFpCharByGen(ref2File,&ref2Size);
                 FILE* fp2;
 
                 try
@@ -130,12 +130,12 @@ void MainWindow::on_VerifyMatch()
                 }
 
                 // Get reference template
-                GetFpCharByEnl(getCharEnl,&ref1Size);
+                GetFpCharByEnl(ref1File,&ref1Size);
                 FILE* fp1;
 
                 try
                 {
-                    fp1 = fopen(ref1, "wb+");
+                    fp1 = fopen(ref1, "ab+");
                 }
                 catch(const std::runtime_error& re)
                 {
@@ -168,12 +168,16 @@ void MainWindow::on_VerifyMatch()
                 }
             }
             timer->stop();
+
+            printf("ref1 = %d bytes\n", ref1size);
+            // % match between sample and template
             if(ref1size>0)
             {
                 QString strResult;
-                int sc;
-                sc=MatchTemplateOne(ref2File,ref1File,512);
-                strResult.sprintf("Match Scope:%d",sc);
+                int MatchScore =0;
+
+                MatchScore=MatchTemplateOne(ref2File,ref1File,512);
+                strResult.sprintf("Match Scope:%d",MatchScore);
                 ui->labelStatus->setText(strResult);
             }
         }

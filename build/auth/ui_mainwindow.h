@@ -33,15 +33,15 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(573, 434);
+        MainWindow->resize(636, 540);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         graphicsView = new QGraphicsView(centralwidget);
         graphicsView->setObjectName(QString::fromUtf8("graphicsView"));
-        graphicsView->setGeometry(QRect(200, 50, 171, 201));
+        graphicsView->setGeometry(QRect(190, 50, 265, 300));
         labelStatus = new QLabel(centralwidget);
         labelStatus->setObjectName(QString::fromUtf8("labelStatus"));
-        labelStatus->setGeometry(QRect(130, 290, 311, 31));
+        labelStatus->setGeometry(QRect(170, 380, 311, 31));
         QFont font;
         font.setFamily(QString::fromUtf8("Arial"));
         font.setPointSize(20);
@@ -51,7 +51,7 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 573, 22));
+        menubar->setGeometry(QRect(0, 0, 636, 22));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
