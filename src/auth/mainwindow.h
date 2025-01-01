@@ -24,6 +24,7 @@ private:
     unsigned char bmpData[93238];
     unsigned char ref2File[512];
     unsigned char ref1File[512];
+    int MatchScore;
     int ref1Size;
     int ref2Size;
     int bmpSize;
