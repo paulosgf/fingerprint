@@ -18,8 +18,6 @@ public:
 
 private:
     QTimer * timer;
-    unsigned char getCharGen[512];
-    unsigned char getCharEnl[512];
     unsigned char ref2File[512];
     unsigned char ref1File[512];
     unsigned char bmpData[93238];
