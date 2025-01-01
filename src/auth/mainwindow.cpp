@@ -33,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     // vars
     ref1Size = 0;
     ref2Size = 0;
+    MatchScore = 0;
 
     // Open device
     on_OpenDevice();
@@ -56,7 +57,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
 void MainWindow::on_VerifyMatch()
 {
     int msgWork=GetWorkMsg();
@@ -66,45 +66,49 @@ void MainWindow::on_VerifyMatch()
     int ref1size = filesystem::file_size(ref1);
     printf("ref1 = %d bytes\n", ref1size);
 
-    timer->start(100);
-    GenFpChar();
-    printf("Timer iniciado; Iniciando captura da digital\n");
+    if(ref1size>0) {
+            timer->start(100);
+            GenFpChar();
 
-    switch(msgWork)
-    {
-    case FPM_PLACE:
-        ui->labelStatus->setText("Place finger");
-        break;
-    case FPM_LIFT:
-        ui->labelStatus->setText("Lift finger");
-        break;
-    case FPM_NEWIMAGE:
-        ui->labelStatus->setText("Captured Image");
-        {
-            on_NewImage();
-        }
-        break;
-    case FPM_GENCHAR:
-        {
-            if(msgRet==0)
+            printf("msgWork %d\n", msgWork);
+            switch(msgWork)
             {
-                ui->labelStatus->setText("Verify Fail");
-            }
-            else
-            {
-                on_GetCapture();
-            }
-            timer->stop();
-
-            printf("ref1 = %d bytes\n", ref1size);
-            // % match between sample and template
-            if(ref1size>0)
-            {
-                on_Compare();
-            }
-        }
-        break;
-     }
+            case FPM_PLACE:
+                printf("FPM_PLACE %d\n", FPM_PLACE);
+                ui->labelStatus->setText("Place finger");
+                break;
+            case FPM_LIFT:
+                printf("FPM_LIFT %d\n", FPM_LIFT);
+                ui->labelStatus->setText("Lift finger");
+                break;
+            case FPM_NEWIMAGE:
+                printf("FPM_NEWIMAGE %d\n", FPM_NEWIMAGE);
+                ui->labelStatus->setText("Captured Image");
+                {
+                    on_NewImage();
+                }
+                break;
+            case FPM_GENCHAR:
+                {
+                    printf("FPM_GENCHAR %d\n", FPM_GENCHAR);
+                    if(msgRet==0)
+                    {
+                        ui->labelStatus->setText("Verify Fail");
+                    }
+                    else
+                    {
+                        // Get sample
+                        on_GetCapture();
+                        // % match between sample and template
+                        on_Compare();                       
+                    }
+                    break;
+                }
+             }
+            printf("MatchScore %d\n", MatchScore);
+            if (MatchScore>=100)
+                timer->stop();
+    }
 }
 
 void MainWindow::on_OpenDevice()
@@ -237,7 +241,6 @@ void MainWindow::on_GetCapture()
 void MainWindow::on_Compare()
 {
     QString strResult;
-    int MatchScore =0;
 
     MatchScore=MatchTemplateOne(ref2File,ref1File,512);
     strResult.sprintf("Match Scope:%d",MatchScore);
