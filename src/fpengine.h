@@ -17,6 +17,8 @@ extern "C" {
 #define FPM_CAPTUREEX		0x10
 #define FPM_NEWIMAGEEX	0x11
 
+typedef int HDC;
+
 int OpenDevice(void);
 int CloseDevice(void);
 int LinkDevice(unsigned int password);
@@ -31,6 +33,7 @@ int EnrolFpChar();
 int SaveImageToFile(const char * filename);
 int GetImageData(unsigned char * imagedata,int * size);
 int GetImageBmp(unsigned char *  bmpdata,int * size);
+int DrawImage(HDC hdc,int left,int top);
 
 int GetFpCharByGen(unsigned char * tpbuf,int* tpsize);
 int GetFpCharByEnl(unsigned char * fpbuf,int* fpsize);

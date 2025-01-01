@@ -12,10 +12,12 @@
 #include <errno.h>
 #include <string.h>
 
+
+char *home = getenv("HOME");
+
 int createEnv()
 {
     DIR *dirptr;
-    char *home = getenv("HOME");
 
     dirptr = opendir(home);
     if (dirptr == NULL) {

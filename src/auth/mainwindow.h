@@ -15,12 +15,15 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    static void initializeGlobals(const char *homef);
+    void on_VerifyMatch();
+    void on_Compare();
 
 private:
     QTimer * timer;
+    unsigned char bmpData[93238];
     unsigned char ref2File[512];
     unsigned char ref1File[512];
-    unsigned char bmpData[93238];
     int ref1Size;
     int ref2Size;
     int bmpSize;
@@ -30,9 +33,10 @@ private slots:
     void on_OpenDevice();
     void on_CloseDevice();
     void on_cleanup();
+    void on_NewImage();
+    void on_GetCapture();
 
 public slots:
-    void on_VerifyMatch();
 
 private:
     Ui::MainWindow *ui;
