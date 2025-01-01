@@ -22,7 +22,7 @@ private:
     int	m_IsOpen;
     int	m_Status;
     int	m_Result;
-    int  m_ProcType;
+    int m_ProcType;
     int m_gencharsize;
     unsigned char m_genchar[512];
     int m_enrollsize;

@@ -283,7 +283,7 @@ install_subtargets: sub-auth-install_subtargets sub-demo-install_subtargets sub-
 uninstall_subtargets: sub-auth-uninstall_subtargets sub-demo-uninstall_subtargets sub-fingerprint-uninstall_subtargets FORCE
 
 postarget: all
-	mkdir -p /usr/local/fingerprint && chmod 0775 /usr/local/fingerprint && chown root.users /usr/local/fingerprint && cp ../fingerprint.png /usr/local/fingerprint && cp ../fingerprint.desktop /usr/share/applications/
+	mkdir -p /usr/local/fingerprint && chmod 0775 /usr/local/fingerprint && chown root.users /usr/local/fingerprint && cp ../fingerprint.png /usr/local/fingerprint && cp ../fingerprint.desktop /usr/share/applications/ && cp ../20-fingerprint.rules /etc/udev/rules.d
 
 sub-auth-check: sub-fingerprint-check
 	@test -d auth/ || mkdir -p auth/
