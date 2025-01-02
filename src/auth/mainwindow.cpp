@@ -33,23 +33,18 @@ MainWindow::MainWindow(QWidget *parent)
     // vars
     ref1Size = 0;
     ref2Size = 0;
-    MatchScore = 0;
 
     // Open device
     on_OpenDevice();
-    printf("Método on_OpenDevice executado\n");
 
     // Timer
     connect(timer, &QTimer::timeout, this, &MainWindow::on_VerifyMatch);
-    printf("Timer iniciado\n");
 
     // Using QTimer to call slot when loading window
     QTimer::singleShot(0, this, &MainWindow::on_VerifyMatch);
-    printf("Slot on_VerifyMatch conectado\n");
 
     // Cleanup routines on exit application
     connect(qApp, &QCoreApplication::aboutToQuit, this, &MainWindow::on_cleanup);
-    printf("Rotina de saida on_cleanup conectada\n");
 }
 
 MainWindow::~MainWindow()
@@ -59,30 +54,26 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_VerifyMatch()
 {
+    int MatchScore = 0;
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
 
     MainWindow::initializeGlobals(homef);
     int ref1size = filesystem::file_size(ref1);
-    printf("ref1 = %d bytes\n", ref1size);
 
     if(ref1size>0) {
             timer->start(100);
             GenFpChar();
 
-            printf("msgWork %d\n", msgWork);
             switch(msgWork)
             {
             case FPM_PLACE:
-                printf("FPM_PLACE %d\n", FPM_PLACE);
                 ui->labelStatus->setText("Place finger");
                 break;
             case FPM_LIFT:
-                printf("FPM_LIFT %d\n", FPM_LIFT);
                 ui->labelStatus->setText("Lift finger");
                 break;
             case FPM_NEWIMAGE:
-                printf("FPM_NEWIMAGE %d\n", FPM_NEWIMAGE);
                 ui->labelStatus->setText("Captured Image");
                 {
                     on_NewImage();
@@ -90,7 +81,6 @@ void MainWindow::on_VerifyMatch()
                 break;
             case FPM_GENCHAR:
                 {
-                    printf("FPM_GENCHAR %d\n", FPM_GENCHAR);
                     if(msgRet==0)
                     {
                         ui->labelStatus->setText("Verify Fail");
@@ -99,15 +89,16 @@ void MainWindow::on_VerifyMatch()
                     {
                         // Get sample
                         on_GetCapture();
-                        // % match between sample and template
-                        on_Compare();                       
                     }
+
+                    // % match between sample and template
+                    MatchScore = on_Compare();
+                }
+                if (MatchScore>=100) {
+                    timer->stop();
                     break;
                 }
              }
-            printf("MatchScore %d\n", MatchScore);
-            if (MatchScore>=100)
-                timer->stop();
     }
 }
 
@@ -120,7 +111,6 @@ void MainWindow::on_OpenDevice()
         sleep(1);
         exit(0);
     }
-    printf("Dispositivo aberto\n");
 
     if(!LinkDevice(0))  // Connect USB
     {
@@ -129,7 +119,6 @@ void MainWindow::on_OpenDevice()
         sleep(1);
         exit(0);
     }
-    printf("Dispositivo conectado\n");
 }
 
 void MainWindow::on_CloseDevice()
@@ -145,7 +134,6 @@ void MainWindow::on_CloseDevice()
 void MainWindow::on_cleanup()
 {
     on_CloseDevice();
-    printf("Dispositivo desconectado\n");
     exit(0);
 }
 
@@ -233,16 +221,19 @@ void MainWindow::on_GetCapture()
     }
     else
     {
-        fread(ref1File,256,1,fp1);
+        fread(ref1File,512,1,fp1);
         fclose(fp1);
     }
 }
 
-void MainWindow::on_Compare()
+int MainWindow::on_Compare()
 {
     QString strResult;
+    int MatchScore = 0;
 
     MatchScore=MatchTemplateOne(ref2File,ref1File,512);
-    strResult.sprintf("Match Scope:%d",MatchScore);
+    strResult.sprintf("Match Scope: %d% ",MatchScore);
     ui->labelStatus->setText(strResult);
+
+    return MatchScore;
 }
