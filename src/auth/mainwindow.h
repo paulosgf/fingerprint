@@ -17,14 +17,13 @@ public:
     ~MainWindow();
     static void initializeGlobals(const char *homef);
     void on_VerifyMatch();
-    void on_Compare();
+    int on_Compare();
 
 private:
     QTimer * timer;
     unsigned char bmpData[93238];
     unsigned char ref2File[512];
     unsigned char ref1File[512];
-    int MatchScore;
     int ref1Size;
     int ref2Size;
     int bmpSize;
