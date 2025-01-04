@@ -36,6 +36,7 @@ int createEnv()
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    MainWindow wdw;
 
     // Define dark theme
     app.setStyleSheet(R"(
@@ -76,9 +77,9 @@ int main(int argc, char *argv[])
             break;
         }
     }
-
-    MainWindow wdw;
     createEnv();
     wdw.show();
-    return app.exec();
+    int appResult = app.exec();
+    int matchScore = wdw.getMatchScore();
+    return matchScore;
 }

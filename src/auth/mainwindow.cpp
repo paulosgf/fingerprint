@@ -54,7 +54,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_VerifyMatch()
 {
-    int MatchScore = 0;
+    MatchScore = 0;
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
 
@@ -235,5 +235,9 @@ int MainWindow::on_Compare()
     strResult.sprintf("Match Scope: %d% ",MatchScore);
     ui->labelStatus->setText(strResult);
 
+    return MatchScore;
+}
+
+int MainWindow::getMatchScore() const {
     return MatchScore;
 }

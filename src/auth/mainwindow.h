@@ -18,6 +18,7 @@ public:
     static void initializeGlobals(const char *homef);
     void on_VerifyMatch();
     int on_Compare();
+    int getMatchScore() const;
 
 private:
     QTimer * timer;
@@ -27,9 +28,9 @@ private:
     int ref1Size;
     int ref2Size;
     int bmpSize;
+    int MatchScore;
 
 private slots:
-
     void on_OpenDevice();
     void on_CloseDevice();
     void on_cleanup();
