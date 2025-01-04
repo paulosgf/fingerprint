@@ -6,7 +6,6 @@
 - #### Install:
 On Ubuntu run: <br>
 git clone https://github.com/paulosgf/fingerprint.git <br> 
-cd fingerprint <br> 
 sudo usermod -aG users $USER <br> 
 cd fingerprint/build <br> 
 make <br> 
