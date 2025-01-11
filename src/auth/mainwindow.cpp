@@ -23,6 +23,7 @@ void MainWindow::initializeGlobals(const char *homef) {
 }
 
 MainWindow::MainWindow(QWidget *parent)
+    // Constructor
     : QMainWindow(parent)
     , timer(new QTimer(this))
     , ui(new Ui::MainWindow)
@@ -49,11 +50,13 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    // Destructor
     delete ui;
 }
 
 void MainWindow::on_VerifyMatch()
 {
+    // Verify match method
     MatchScore = 0;
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
@@ -93,17 +96,25 @@ void MainWindow::on_VerifyMatch()
 
                     // % match between sample and template
                     MatchScore = on_Compare();
-                }
-                if (MatchScore>=100) {
-                    timer->stop();
-                    break;
+                    if (MatchScore>=100) {
+                        timer->stop();
+                        break;
+                    }
                 }
              }
+
+    }
+    // If match == 100%; then exit with success
+    if (MatchScore>=100) {
+        QCoreApplication::processEvents();
+        on_CloseDevice();
+        QTimer::singleShot(100, []() { qApp->exit(0); });
     }
 }
 
 void MainWindow::on_OpenDevice()
 {
+    // Open Device method
     CloseDevice();
     if(!OpenDevice())	//Open USB
     {
@@ -123,6 +134,7 @@ void MainWindow::on_OpenDevice()
 
 void MainWindow::on_CloseDevice()
 {
+    // Close Device method
    if (!CloseDevice())
    {
         ui->labelStatus->setText("Device Close Fail");
@@ -133,12 +145,14 @@ void MainWindow::on_CloseDevice()
 
 void MainWindow::on_cleanup()
 {
+    // Cleanup routine on close application
     on_CloseDevice();
     exit(0);
 }
 
 void MainWindow::on_NewImage()
 {
+    // Get new image method
     GetImageBmp(bmpData,&bmpSize);
     QPixmap * pm = new QPixmap();
 
@@ -228,16 +242,19 @@ void MainWindow::on_GetCapture()
 
 int MainWindow::on_Compare()
 {
+    // Return match score
     QString strResult;
     int MatchScore = 0;
 
-    MatchScore=MatchTemplateOne(ref2File,ref1File,512);
+    MatchScore = MatchTemplateOne(ref2File,ref1File,512);
     strResult.sprintf("Match Scope: %d% ",MatchScore);
     ui->labelStatus->setText(strResult);
+    printf("score %d\n", MatchScore);
 
     return MatchScore;
 }
 
 int MainWindow::getMatchScore() const {
+    // Return match score to main()
     return MatchScore;
 }
