@@ -69,7 +69,7 @@ void MainWindow::on_RegistryCapture()
             FILE* fp;
             try
             {   if (ref1 != NULL)   {
-                    fp = fopen(ref1, "wb+");
+                    fp = fopen(ref1, "wb");
                 }
             }
             catch(const runtime_error& re)

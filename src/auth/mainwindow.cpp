@@ -171,7 +171,7 @@ void MainWindow::on_GetCapture()
 
     try
     {
-        fp2 = fopen(ref2.c_str(), "wb+");
+        fp2 = fopen(ref2.c_str(), "wb");
     }
     catch(const std::runtime_error& re)
     {
@@ -208,7 +208,7 @@ void MainWindow::on_GetCapture()
 
     try
     {
-        fp1 = fopen(ref1.c_str(), "ab+");
+        fp1 = fopen(ref1.c_str(), "ab");
     }
     catch(const std::runtime_error& re)
     {
@@ -249,7 +249,6 @@ int MainWindow::on_Compare()
     MatchScore = MatchTemplateOne(ref2File,ref1File,512);
     strResult.sprintf("Match Scope: %d% ",MatchScore);
     ui->labelStatus->setText(strResult);
-    printf("score %d\n", MatchScore);
 
     return MatchScore;
 }

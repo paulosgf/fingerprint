@@ -64,7 +64,6 @@ void MainWindow::on_pushButton_CloseDevice_clicked()
 
 void MainWindow::on_pushButton_Enroll_clicked()
 {
-    printf("Registry button clicked\n");
     timer->start(100);
     EnrolFpChar();
 }
@@ -85,7 +84,6 @@ void MainWindow::onTimer()
     char *ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
     sprintf(ref2, "%s%s", home, "/ref2.dat");
 
-    printf("GetWorkMsg: %d\n", msgWork);
     switch(msgWork)
     {
     case FPM_PLACE:
@@ -127,7 +125,7 @@ void MainWindow::onTimer()
                 FILE* fp;
                 try
                 {
-                    fp = fopen(ref2, "wb+");
+                    fp = fopen(ref2, "wb");
                 }
                 catch(const std::runtime_error& re)
                 {
@@ -187,7 +185,7 @@ void MainWindow::onTimer()
                 FILE* fp;
                 try
                 {
-                    fp = fopen(ref1, "wb+");
+                    fp = fopen(ref1, "wb");
                 }
                 catch(const std::runtime_error& re)
                 {
@@ -240,13 +238,13 @@ void MainWindow::matchfile()
     FILE* fp1;
     FILE* fp2;
 
-    fp1 = fopen(ref1, "rb+");
+    fp1 = fopen(ref1, "rb");
     if (fp1 == NULL)
     {
         ui->labelStatus->setText("Open File Fail");
         return;
     }
-    fp2 = fopen(ref2, "rb+");
+    fp2 = fopen(ref2, "rb");
     if (fp2 == NULL)
     {
         ui->labelStatus->setText("Open File Fail");
