@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "./mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <cstdlib>
@@ -7,30 +7,24 @@
 #include <unistd.h>
 #include "../fpengine.h"
 
-
 using namespace std;
-
-// Application directory
-char *homef = strcat(getenv("HOME"), "/.fingerprint");
-
-// Databases
-std::string ref1;
-std::string ref2;
-
-void MainWindow::initializeGlobals(const char *homef) {
-    ref1 = std::string(homef) + "/ref1.dat";
-    ref2 = std::string(homef) + "/ref2.dat";
-}
 
 MainWindow::MainWindow(QWidget *parent)
     // Constructor
     : QMainWindow(parent)
     , timer(new QTimer(this))
+    , home(nullptr)
+    , ref1(nullptr)
+    , ref2(nullptr)
     , ui(new Ui::MainWindow)
-
 {
     ui->setupUi(this);
 
+    // Application directory
+    home = strcat(getenv("HOME"), "/.fingerprint");
+
+    // Global vars
+    initializeGlobals();
     // vars
     ref1Size = 0;
     ref2Size = 0;
@@ -51,7 +45,18 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     // Destructor
+
+    // Free memory
+    free(ref1);
+    free(ref2);
     delete ui;
+}
+
+void MainWindow::initializeGlobals() {
+    ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
+    sprintf(ref1, "%s%s", home, "/ref1.dat");
+    ref2 = (char *) malloc(strlen(home) + strlen("/ref2.dat") + 1);
+    sprintf(ref2, "%s%s", home, "/ref2.dat");
 }
 
 void MainWindow::on_VerifyMatch()
@@ -61,7 +66,7 @@ void MainWindow::on_VerifyMatch()
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
 
-    MainWindow::initializeGlobals(homef);
+//    MainWindow::initializeGlobals(home);
     int ref1size = filesystem::file_size(ref1);
 
     if(ref1size>0) {
@@ -93,16 +98,15 @@ void MainWindow::on_VerifyMatch()
                         // Get sample
                         on_GetCapture();
                     }
-
                     // % match between sample and template
                     MatchScore = on_Compare();
-                    if (MatchScore>=100) {
+                    if (MatchScore>=100)
+                     {
                         timer->stop();
                         break;
-                    }
+                     }
                 }
              }
-
     }
     // If match == 100%; then exit with success
     if (MatchScore>=100) {
@@ -110,6 +114,7 @@ void MainWindow::on_VerifyMatch()
         on_CloseDevice();
         QTimer::singleShot(100, []() { qApp->exit(0); });
     }
+
 }
 
 void MainWindow::on_OpenDevice()
@@ -164,6 +169,8 @@ void MainWindow::on_NewImage()
 
 void MainWindow::on_GetCapture()
 {
+    std::cout << ref1 << endl;
+    std::cout << ref2 << endl;
 
     // Get matching pattern
     GetFpCharByGen(ref2File,&ref2Size);
@@ -171,7 +178,7 @@ void MainWindow::on_GetCapture()
 
     try
     {
-        fp2 = fopen(ref2.c_str(), "wb");
+        fp2 = fopen(ref2, "wb");
     }
     catch(const std::runtime_error& re)
     {
@@ -202,13 +209,21 @@ void MainWindow::on_GetCapture()
         fclose(fp2);
     }
 
+    // Debug
+    cout << "ref2" << endl;
+    for (int i = 0; i < 256; ++i) {
+        printf("%02X ", ref2File[i]);
+    }
+    printf("\n");
+
+
     // Get reference template
     GetFpCharByEnl(ref1File,&ref1Size);
     FILE* fp1;
 
     try
     {
-        fp1 = fopen(ref1.c_str(), "ab");
+        fp1 = fopen(ref1, "rb");
     }
     catch(const std::runtime_error& re)
     {
@@ -238,6 +253,14 @@ void MainWindow::on_GetCapture()
         fread(ref1File,512,1,fp1);
         fclose(fp1);
     }
+
+    // Debug
+    cout << "ref1" << endl;
+    for (int i = 0; i < 512; ++i) {
+        printf("%02X ", ref1File[i]);
+    }
+    printf("\n");
+
 }
 
 int MainWindow::on_Compare()

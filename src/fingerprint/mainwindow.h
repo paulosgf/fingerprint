@@ -19,10 +19,11 @@ public:
 private:
     QTimer * timer;
     unsigned char regPtr[512];
-    unsigned char regFile[512];
     unsigned char bmpData[93238];
     int regSize;
     int bmpSize;
+    // Databases
+    char *ref1;
 
 private slots:
     void on_RegistryCapture();
