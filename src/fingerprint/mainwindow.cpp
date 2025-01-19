@@ -26,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+    // Destructor
+
+    // Free memory
+    free(ref1);
     delete ui;
 }
 
@@ -33,7 +37,7 @@ void MainWindow::on_RegistryCapture()
 {
     int msgWork=GetWorkMsg();
     int msgRet=GetRetMsg();
-    char *ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
+    ref1 = (char *) malloc(strlen(home) + strlen("/ref1.dat") + 1);
     sprintf(ref1, "%s%s", home, "/ref1.dat");
 
     switch(msgWork)
@@ -55,7 +59,6 @@ void MainWindow::on_RegistryCapture()
             ui->graphicsView->setScene(gs);
         }
         break;
-    case FPM_CAPTURE:
     case FPM_ENRFPT:
         {
         if(msgRet==0)
@@ -68,9 +71,8 @@ void MainWindow::on_RegistryCapture()
 
             FILE* fp;
             try
-            {   if (ref1 != NULL)   {
+            {
                     fp = fopen(ref1, "wb");
-                }
             }
             catch(const runtime_error& re)
             {
@@ -96,17 +98,22 @@ void MainWindow::on_RegistryCapture()
             }
             else
             {
-                if (fp != NULL) {
-                    fwrite(regFile,512,1,fp);
+                    fwrite(regPtr,512,1,fp);
                     fclose(fp);
-                    free(ref1);
-                }
-            }
             }
             timer->stop();
         }
+        // Debug
+        cout << "ref1" << endl;
+        for (int i = 0; i < 512; ++i) {
+            printf("%02X ", ref1[i]);
+        }
+        printf("\n");
+
          break;
      }
+
+   }
 }
 
 void MainWindow::on_OpenDevice()

@@ -13,7 +13,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     static void initializeGlobals(const char *homef);
     void on_VerifyMatch();
@@ -29,6 +29,12 @@ private:
     int ref2Size;
     int bmpSize;
     int MatchScore;
+    const char *home;
+    // Databases
+    char *ref1;
+    char *ref2;
+    // Global vars
+    void initializeGlobals();
 
 private slots:
     void on_OpenDevice();
