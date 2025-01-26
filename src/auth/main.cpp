@@ -22,7 +22,6 @@ int createEnv()
     dirptr = opendir(home);
     if (dirptr == NULL) {
         puts("User directory not found! Creating this...\n");
-        printf("%s\n", home);
         if (mkdir(home, 0777) != 0)    {
             printf("Cannot create directory. Error: %s\n", strerror(errno));
             return 1;

@@ -103,13 +103,6 @@ void MainWindow::on_RegistryCapture()
             }
             timer->stop();
         }
-        // Debug
-        cout << "ref1" << endl;
-        for (int i = 0; i < 512; ++i) {
-            printf("%02X ", ref1[i]);
-        }
-        printf("\n");
-
          break;
      }
 
