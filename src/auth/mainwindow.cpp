@@ -169,9 +169,6 @@ void MainWindow::on_NewImage()
 
 void MainWindow::on_GetCapture()
 {
-    std::cout << ref1 << endl;
-    std::cout << ref2 << endl;
-
     // Get matching pattern
     GetFpCharByGen(ref2File,&ref2Size);
     FILE* fp2;
@@ -208,15 +205,6 @@ void MainWindow::on_GetCapture()
         fwrite(ref2File,256,1,fp2);
         fclose(fp2);
     }
-
-    // Debug
-    cout << "ref2" << endl;
-    for (int i = 0; i < 256; ++i) {
-        printf("%02X ", ref2File[i]);
-    }
-    printf("\n");
-
-
     // Get reference template
     GetFpCharByEnl(ref1File,&ref1Size);
     FILE* fp1;
@@ -253,14 +241,6 @@ void MainWindow::on_GetCapture()
         fread(ref1File,512,1,fp1);
         fclose(fp1);
     }
-
-    // Debug
-    cout << "ref1" << endl;
-    for (int i = 0; i < 512; ++i) {
-        printf("%02X ", ref1File[i]);
-    }
-    printf("\n");
-
 }
 
 int MainWindow::on_Compare()
