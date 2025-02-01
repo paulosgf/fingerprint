@@ -10,4 +10,4 @@ sudo usermod -aG users $USER <br>
 cd fingerprint/build <br> 
 make <br> 
 sudo make install <br> 
-sudo make post_install <br> 
+sudo make postarget <br> 
